@@ -1,61 +1,62 @@
-print("what do you want me calculate senpai ;) ")
+def calculate_profit_percentage(selling_price, cost_price):
+    return ((selling_price - cost_price) * 100) / cost_price
 
+def calculate_leveraged_profit(profit, leverage):
+    return profit * leverage
 
-x = input()
+def calculate_average_price(currencies, prices):
+    total_investment = sum(currencies[i] * prices[i] for i in range(len(currencies)))
+    total_currencies = sum(currencies)
+    return total_investment / total_currencies
 
-if x == "%":
-	print("selling price ,daddy: ")
-	sp = float(input())
-	print("cost price (not mine;): ")
-	cp = float(input())
-	print("and leverage senpai? ")
-	n = float(input())
-	print("profit is: ")
-	pf = ((sp-cp)*100)/cp
-	print(pf)
-	print("leveraged profit is: ")
-	print(pf*n)
-	print("happy trading senpai...ara ara")
+def calculate_dca(periods, closing_prices):
+    total_inverse_prices = sum(1 / price for price in closing_prices)
+    return periods / total_inverse_prices
 
-elif x == "avg":
-	a = []
-	b = []
-	c = []
-	sum = 0
-	sum2 = 0
-	print("ara ara ..what are the number of currencies you want me to calculate senpai")
-	n1 = int(input())
-	print("senpai ..now please put the no. of currrencies and price respectively like 25 currencies ay 20 dollar each then again")
-	for _ in range(n1):
-		a1 = float(input())
-		a2 = float(input())
-		a.append(a1)
-		b.append(a2)
-	for i in range(len(a)):
-		c.append(a[i]*b[i])
-		sum2 = sum2 + a[i]
-	print(c)
-	for p in range(len(c)):
-		sum = sum+c[p]
-		average = sum/len(c)
-	avg_price = sum/sum2  #this is the avg price
-	print("total invested amount is:/n" , sum)
-	print("senpai the avg price is :",avg_price)
-	print("happy trading senpai...and i'll be waiting at home ;)")
+print("Welcome to the Dollar Cost Averaging Calculator!")
 
+choice = input("What do you want to calculate?\n1. Profit Percentage and Leveraged Profit\n2. Average Price\n3. Dollar Cost Averaging\n")
 
-elif x == "dca":
-	print("number of periods senpai:  ")
-	t1 = int(input())
-	e = []
-	sum1 = 0
-	print("senpai now i need the closing prices...and the D ofcourse but later;)")
-	for _ in range(t1):
-		d = float(input())
-		e.append(d)
-	for o in range(len(e)):
-		e[o] = 1/e[o]
-		sum1 = sum1 + e[o]
-	print("the DCA senpai: " ,t1/sum1)
-	print("happy trading onichan ...step onichan...")
-	
+if choice == "1":
+    selling_price = float(input("Enter selling price: "))
+    cost_price = float(input("Enter cost price: "))
+    leverage = float(input("Enter leverage: "))
+    
+    profit = calculate_profit_percentage(selling_price, cost_price)
+    leveraged_profit = calculate_leveraged_profit(profit, leverage)
+    
+    print("Profit Percentage:", profit)
+    print("Leveraged Profit:", leveraged_profit)
+
+elif choice == "2":
+    num_currencies = int(input("Enter the number of currencies: "))
+    
+    currencies = []
+    prices = []
+    
+    for _ in range(num_currencies):
+        currency = float(input("Enter number of currencies: "))
+        price = float(input("Enter price: "))
+        currencies.append(currency)
+        prices.append(price)
+    
+    avg_price = calculate_average_price(currencies, prices)
+    total_investment = sum(currencies[i] * prices[i] for i in range(len(currencies)))
+    
+    print("Total Invested Amount:", total_investment)
+    print("Average Price:", avg_price)
+
+elif choice == "3":
+    num_periods = int(input("Enter number of periods: "))
+    
+    closing_prices = []
+    
+    for _ in range(num_periods):
+        price = float(input("Enter closing price: "))
+        closing_prices.append(price)
+    
+    dca = calculate_dca(num_periods, closing_prices)
+    
+    print("Dollar Cost Averaging:", dca)
+
+print("Thank you for using the Dollar Cost Averaging Calculator!")
